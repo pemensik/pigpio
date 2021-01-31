@@ -1,0 +1,36 @@
+From 6be1505794d2561d316c70c71444bc642cc75926 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Petr=20Men=C5=A1=C3=ADk?= <pihhan@gmail.com>
+Date: Sun, 31 Jan 2021 21:16:20 +0100
+Subject: [PATCH] Allow building on 64-bit system using lib64
+
+Fedora uses /usr/lib64 on 64-bit systems. Allow easy configuration in
+cmake to install to correct directories.
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 383c445..1410edb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -53,8 +53,8 @@ generate_export_header(${PROJECT_NAME})
+ 
+ install(TARGETS pigpio pigpiod_if pigpiod_if2 pig2vcd pigpiod pigs
+     EXPORT ${PROJECT_NAME}Targets
+-	LIBRARY  DESTINATION lib
+-	ARCHIVE  DESTINATION lib
++	LIBRARY  DESTINATION lib${LIB_SUFFIX}
++	ARCHIVE  DESTINATION lib${LIB_SUFFIX}
+ 	RUNTIME  DESTINATION bin
+ 	INCLUDES DESTINATION include
+ )
+@@ -124,4 +124,4 @@ endif()
+ 
+ # package project
+ 
+-include (CPack)
+\ No newline at end of file
++include (CPack)
+-- 
+2.29.2
+
